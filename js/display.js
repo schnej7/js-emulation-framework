@@ -11,7 +11,7 @@ function Display( width, height, pixelSize, canvas ){
     /* CONSTRUCTOR */
     var api = this,
         length = width * height,
-        buffer = [],
+        buffer = [];
     if( !canvas ){
         var container = document.createElement('div'),
             pixel = document.createElement('div'),
