@@ -62,6 +62,8 @@ function Display( width, height, pixelSize, canvas ){
         };
     api.setPixel = function( x, y, value ){
         buffer[ (y * width + x) % length ] = value;
+        context.fillStyle = value;
+        context.fillRect( x * pixelSize, y * pixelSize, pixelSize,  pixelSize);
         return api;
     };
     api.getPixel = function( x, y ){
