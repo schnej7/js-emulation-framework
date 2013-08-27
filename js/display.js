@@ -11,17 +11,14 @@ function Display( width, height, pixelSize, canvas ){
     /* CONSTRUCTOR */
     var api = this,
         length = width * height,
-        buffer = [];
+        buffer = [],
+        renderQueue = [];
     if( !canvas ){
-        var container = document.createElement('div'),
-            pixel = document.createElement('div'),
-            pixels = container.childNodes;
+        var container = document.createElement('div');
         container.style.width = width * pixelSize + 'px';
         container.style.height = height * pixelSize + 'px';
-        pixel.style.width = pixel.style.height = pixelSize + 'px';
-        pixel.style.cssFloat = pixel.style.styleFloat = 'left';
-        for( var i = 0; i < length; i++ )
-            container.appendChild( pixel.cloneNode() );
+        container.innerHTML = 'Not Supported';
+        return null;
     } else {
         var container = document.createElement('canvas'),
             context = container.getContext('2d');
@@ -31,39 +28,25 @@ function Display( width, height, pixelSize, canvas ){
     /* PUBLIC VARIABLES AND FUNCTIONS */
     api.container = container;
     api.fill = function( value ){
-        for( var i = 0; i < length; i++ )
+        for( var i = 0; i < length; i++ ){
             buffer[i] = value;
+            renderQueue.push({x: i % width, y: Math.floor( i / width ), i: i});
+        }
         return api;
     };
-    api.flush = !canvas ?
-        function( _x, _y, w, h ){
-            var flushHeight = ( h + y ) || height;
-            var flushWidth = ( w + x ) || width;
-            for( var y = _y || 0; y < flushHeight; y++ ){
-                for( var x = _x || 0; x < flushWidth; x++ ){
-                    pixels[ y * width + x ].style.backgroundColor = buffer[ y * width + x ];
-                }
-            }
-            return api;
-            
-        } :
-        function( _x, _y, w, h ){
-            var flushHeight = ( h + y ) || height;
-            var flushWidth = ( w + x ) || width;
-            for( var y = _y || 0; y < flushHeight; y++ ){
-                for( var x = _x || 0; x < flushWidth; x++ ){
-                    context.fillStyle = buffer[ y * width + x ];
-                    context.fillRect(
-                        x * pixelSize, y * pixelSize,
-                        pixelSize, pixelSize );
-                }
-            }
-            return api;
-        };
+    api.flush = function( _x, _y, w, h ){
+        while( renderQueue.length > 0 ){
+            var pix = renderQueue.shift();
+            context.fillStyle = buffer[ pix.i ];
+            context.fillRect( pix.x * pixelSize, pix.y * pixelSize, pixelSize, pixelSize );
+        }
+        return api;
+    };
     api.setPixel = function( x, y, value ){
         buffer[ (y * width + x) % length ] = value;
-        context.fillStyle = value;
-        context.fillRect( x * pixelSize, y * pixelSize, pixelSize,  pixelSize);
+        renderQueue.push({x: x, y: y, i: (y * width + x) % length});
+        //context.fillStyle = value;
+        //context.fillRect( x * pixelSize, y * pixelSize, pixelSize,  pixelSize);
         return api;
     };
     api.getPixel = function( x, y ){
