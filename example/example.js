@@ -13,17 +13,13 @@ window.onload = function(){
 };
 
 var callback = function(){
-    var i = 0;
-    while( i++ < 10000 ){
-        var color = "#00" + index;
-        index = (index + 1) % 9;
-        display.setPixel( _x, _y, color );
-        display.setPixel( x, y, "#F00" ).flush();
-        //if( !(y%5) && !x ) display.flush();
-        //setTimeout( callback, 0, (x + 1) % width, (y + Math.floor((x + 1)/width)) % height );
-        _x = x;
-        _y = y;
-        x = (x + 1) % width;
-        y = x ? y : (y + 1) % height;
-    }
+    index = (index + 1) % 9;
+    var color = "#00" + index;
+    display.setPixel( _x, _y, color );
+    display.setPixel( x, y, "#F00" ).flush();
+    _x = x;
+    _y = y;
+    x = (x + 1) % width;
+    y = x ? y : (y + 1) % height;
+    setTimeout( callback, 0 );
 };
