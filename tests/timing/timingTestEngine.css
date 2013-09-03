@@ -1,0 +1,11 @@
+.badtime{
+    color: red;
+}
+.goodtime{
+    color: green;
+}
+.show{
+    color: #2518b5;
+    cursor: pointer;
+    text-decoration: underline;
+}

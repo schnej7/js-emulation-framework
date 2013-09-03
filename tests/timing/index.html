@@ -1,0 +1,16 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="timingTestEngine.css">
+  </head>
+  <body>
+    <script src="timingTestEngine.js"></script>
+    <script src="exampleTests.js"></script>
+    <script src="displayTests.js"></script>
+    <script>
+      tte = new timingTestEngine();
+      tte.loadTestSet( exampleTests );
+      tte.loadTestSet( displayTests );
+      tte.runTests();
+    </script>
+  </body>
+</html>
