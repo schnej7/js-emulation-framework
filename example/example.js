@@ -13,13 +13,13 @@ window.onload = function(){
 };
 
 var callback = function(){
-    var color = "#00" + index;
     index = (index + 1) % 9;
+    var color = "#00" + index;
     display.setPixel( _x, _y, color );
     display.setPixel( x, y, "#F00" ).flush();
     _x = x;
     _y = y;
     x = (x + 1) % width;
     y = x ? y : (y + 1) % height;
-    setTimeout( callback, 0, x, y );
+    setTimeout( callback, 0 );
 };
