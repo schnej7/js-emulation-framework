@@ -4,7 +4,7 @@ function processor(){
     this.t0 = 0;
     this.start = function(){
         that.t1 = new Date().getTime();
-        self.postMessage(that.t1 - that.t0);
+        console.log(that.t1 - that.t0);
         that.t0 = new Date().getTime();
         setTimeout( p.start, 0 );
     }
