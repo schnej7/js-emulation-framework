@@ -1,6 +1,6 @@
 /* TO USE:
 // create the display object
-var display = new Display( 64, 32, 12, !CanvasRenderingContext2D )
+var display = new Display( 64, 32, 12, !!CanvasRenderingContext2D )
 // clear screen
 display.fill(0).flush();
 // add to the DOM
