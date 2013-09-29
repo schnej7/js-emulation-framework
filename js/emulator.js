@@ -1,7 +1,7 @@
 function emulatorBuilder(){
     this.opcodeSize = function( a_size ){
     }
-    this.memorySize = function( a_memorySize ){
+    this.memorySize = function( a_memorySize, a_instructionSize ){
     }
     this.instructionSet = function( a_instructionSet ){
     }
@@ -10,6 +10,8 @@ function emulatorBuilder(){
         return e;
     }
 }
+
+
 function emulator(){
     this.display = null;
     this.processor = null;
